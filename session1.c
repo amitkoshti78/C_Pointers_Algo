@@ -27,7 +27,6 @@ int main()
     int *p_num1 = &int_num1;
     char *p_char1 = &c_char1;
 
-    printf("Hello World \n");
 
     printf("Value %d --> address %p \n ", int_number, &int_number);
 
@@ -52,7 +51,6 @@ int main()
     printf("Value %f --> address %p \n ", f_num1, &f_num1);
 
     printf("Value %p --> address %p --> value %f \n ", p_float1, &p_float1, *p_float1);
-
 
     return 0;
 }
