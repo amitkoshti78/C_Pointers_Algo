@@ -40,7 +40,7 @@ void swap_ptr(int *a, int *b) {
     printf("       |          %d         |                    |          %d         |\n", *a, *b);
     printf("       |           ^         |                    |           ^         |\n");
     printf("       |           |         |                    |           |         |\n");
-    printf("       |     %p  |                    |     %p  |\n", a, b);
+    printf("       | &x : %p |                    | &y : %p |\n", a, b);
     printf("       |                     |                    |                     |\n");
     printf("       -----------------------                    -----------------------\n");
     printf("Addr &a: %p                            Addr &b: %p\n",&a, &b);
@@ -57,7 +57,7 @@ void swap_ptr(int *a, int *b) {
     printf("       |          %d         |                    |          %d         |\n", *a, *b);
     printf("       |           ^         |                    |           ^         |\n");
     printf("       |           |         |                    |           |         |\n");
-    printf("       |     %p  |                    |     %p  |\n", a, b);
+    printf("       | &x : %p |                    | &y : %p |\n", a, b);
     printf("       |                     |                    |                     |\n");
     printf("       -----------------------                    -----------------------\n");
     printf("Addr &a: %p                            Addr &b: %p\n",&a, &b);
@@ -65,38 +65,39 @@ void swap_ptr(int *a, int *b) {
 }
 
 int main() {
-    int a = 10;
-    int b = 20;
+    int x = 10;
+    int y = 20;
 
-
+    printf("\n \'&\' : Gives address of a variable in a memory and called as address of operator \n");
+    printf(" \'*\' : Gives the value stored at address and termed as pointing to/deferencing operator \n");
     printf("\n ### In Side main start of program ### \n");
-    printf("           variable a                              variable b\n");
+    printf("           variable x                              variable y\n");
     printf("        _____________________                 _____________________\n");
     printf("       |                     |               |                     |\n");
-    printf("       |          %d         |               |          %d         |\n", a,b);
+    printf("       |          %d         |               |          %d         |\n", x,y);
     printf("       |                     |               |                     |\n");
     printf("       -----------------------               ----------------------- \n");
-    printf("Addr &a: %p                     Addr &b: %p\n\n ",&a, &b);
+    printf("Addr &x: %p                     Addr &y: %p\n\n ",&x, &y);
 
-    swap(a,b); /* pass by value */
+    swap(x,y); /* pass by value */
 
     printf("\n ### Inside main after swap by value ### \n");
-    printf("           variable a                              variable b\n");
+    printf("           variable x                              variable y\n");
     printf("        _____________________                 _____________________\n");
     printf("       |                     |               |                     |\n");
-    printf("       |          %d         |               |          %d         |\n", a,b);
+    printf("       |          %d         |               |          %d         |\n", x,y);
     printf("       |                     |               |                     |\n");
     printf("       -----------------------               ----------------------- \n");
-    printf("Addr &a: %p                    Addr &b: %p\n\n ",&a, &b);
+    printf("Addr &x: %p                    Addr &y: %p\n\n ",&x, &y);
 
-    swap_ptr(&a, &b); /* pass by reference */
+    swap_ptr(&x, &y); /* pass by reference */
 
     printf("\n ### In Side main after pointer  sawp ### \n");
-    printf("           variable a                              variable b\n");
+    printf("           variable x                              variable y\n");
     printf("        _____________________                 _____________________\n");
     printf("       |                     |               |                     |\n");
-    printf("       |          %d         |               |          %d         |\n", a,b);
+    printf("       |          %d         |               |          %d         |\n", x,y);
     printf("       |                     |               |                     |\n");
     printf("       -----------------------               ----------------------- \n");
-    printf("Addr &a: %p                   Addr &b: %p\n\n ",&a, &b);
+    printf("Addr &x: %p                   Addr &y: %p\n\n ",&x, &y);
 }
