@@ -76,6 +76,41 @@ void delete_node_end() {
 
 }
 
+void delete_roll_number(int roll_number) {
+    if (head == NULL) {
+        printf("#### Linked list is empty nothing to delete ####\n");
+    }
+    else if(head -> next == NULL) {
+        free(head);
+        head = NULL;
+    }
+    else if(head->roll_number == roll_number) {
+            struct Student* delete_node = head;
+            head = head->next;
+            free(delete_node);
+    }
+    else {
+
+      struct Student* temp = head;
+      while(temp->next->roll_number != roll_number && temp->next != NULL) {
+            temp = temp->next;
+      }
+      if(temp->next->roll_number == roll_number && temp->next->next != NULL) {
+            struct Student* delete_node = temp->next;
+            temp->next = temp->next->next;
+            free(delete_node);
+
+           //struct Student* tnode = temp->next->next;
+           //free(temp->next);
+           //temp->next = tnode;
+       }
+        if(temp->next->roll_number == roll_number && temp->next->next == NULL) {
+                free(temp->next);
+                temp->next = NULL;
+        }
+    }
+}
+
 void print_linked_list() {
     struct Student* temp = head;
     if (head == NULL) {
@@ -104,6 +139,7 @@ int main() {
         printf("Add node at end : 2\n");
         printf("Print linked list : 3\n");
         printf("Delete node at end : 4\n");
+        printf("Delete using roll number : 5\n");
         printf("Exit Program : 0\n");
         printf("\n Enter your choice : ");
         scanf("%d", &choice);
@@ -129,6 +165,11 @@ int main() {
                 break;
             case 4:
                 delete_node_end();
+                break;
+            case 5:
+                printf("Enter roll number : ");
+                scanf("%d", &roll_number);
+                delete_roll_number(roll_number);
                 break;
             case 0:
                 printf("Exit Program\n");
