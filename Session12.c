@@ -111,6 +111,33 @@ void delete_roll_number(int roll_number) {
     }
 }
 
+void insert_at_location(int roll_number, char name[], int location) {
+    struct Student* new_node = create_node(roll_number, name);
+    int i = 1;
+
+    struct Student* temp = head;
+    if (head == NULL)
+        head = new_node;
+    else if (location == 1) {
+         new_node->next = head;
+         head = new_node;
+    }
+    else {
+        location = location - 1;
+        if (location < 1) {
+            printf("#### Invalid location ####\n");
+            return;
+        }
+        while (temp->next != NULL && i < location) {
+            i++;
+            temp = temp->next;
+        }
+        new_node->next = temp->next;
+        temp->next = new_node;
+    }
+
+}
+
 void print_linked_list() {
     struct Student* temp = head;
     if (head == NULL) {
@@ -132,7 +159,10 @@ int main() {
 
     int roll_number;
     char name[20];
+    int location;
+
     int choice = 0;
+
     do {
         printf("\n $$$ Main Menu $$$\n");
         printf("Add node at front : 1\n");
@@ -140,6 +170,7 @@ int main() {
         printf("Print linked list : 3\n");
         printf("Delete node at end : 4\n");
         printf("Delete using roll number : 5\n");
+        printf("Insert at location : 6\n");
         printf("Exit Program : 0\n");
         printf("\n Enter your choice : ");
         scanf("%d", &choice);
@@ -170,6 +201,15 @@ int main() {
                 printf("Enter roll number : ");
                 scanf("%d", &roll_number);
                 delete_roll_number(roll_number);
+                break;
+            case 6:
+                printf("Enter roll number : ");
+                scanf("%d", &roll_number);
+                printf("Enter name : ");
+                scanf("%s", name);
+                printf("Insert location : ");
+                scanf("%d", &location);
+                insert_at_location(roll_number, name, location);
                 break;
             case 0:
                 printf("Exit Program\n");
