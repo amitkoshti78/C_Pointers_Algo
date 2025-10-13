@@ -89,6 +89,13 @@ void display_linked_list_back() {
 
 void delete_linked_list() {
     struct Student* temp = head;
+    if(temp->next == NULL) {
+       free(temp);
+        head = NULL;
+        tail = NULL;
+        return;
+    }
+
     while(temp != NULL) {
         struct Student* tofree = temp;
         temp = temp->next;
@@ -98,7 +105,7 @@ void delete_linked_list() {
     tail = NULL;
 }
 
-void main() {
+int main() {
     int roll_number;
     char name[20];
     int sem;
@@ -130,8 +137,9 @@ void main() {
     display_linked_list();
     printf("\n Linked List printed in Reverse order: ");
     display_linked_list_back();
-
+    printf("\n Linked List delete and free memory: ");
     delete_linked_list();
 
+    return 0;
 }
 
