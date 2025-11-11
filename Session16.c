@@ -54,6 +54,22 @@ void inorder(struct BinaryTree* root) {
     printf("%d ", root->number);
     inorder(root->right);
 }
+void preorder(struct BinaryTree* root) {
+    if(root == NULL) {
+        return;
+    }
+    printf("%d ", root->number);
+    inorder(root->left);
+    inorder(root->right);
+}
+void postorder(struct BinaryTree* root) {
+    if(root == NULL) {
+        return;
+    }
+    inorder(root->left);
+    inorder(root->right);
+    printf("%d ", root->number);
+}
 
 int main () {
     struct BinaryTree* root = NULL;
@@ -76,7 +92,12 @@ int main () {
 
     } while (number != -1) ;
 
+    printf("\n In Order");
     inorder(root);
+    printf("\n Pre Order");
+    preorder(root);
+    printf("\n Post Order");
+    postorder(root);
 
     return 0;
 }
