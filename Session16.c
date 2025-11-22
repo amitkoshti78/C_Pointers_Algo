@@ -92,11 +92,11 @@ int main () {
 
     } while (number != -1) ;
 
-    printf("\n In Order");
+    printf("\n In Order :");
     inorder(root);
-    printf("\n Pre Order");
+    printf("\n Pre Order :");
     preorder(root);
-    printf("\n Post Order");
+    printf("\n Post Order :");
     postorder(root);
 
     return 0;
