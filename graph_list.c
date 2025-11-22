@@ -1,6 +1,10 @@
 //
 // Created by Amit Koshti on 22/11/25.
 //
+// space complexity = O(V + 2E) undirected graphs
+// space complexity = O(V + E) directed graphs
+// time complexity = O(V + E)  where v = number of vertices and E = number of edges
+
 #include <stdio.h>
 #include <stdlib.h>
 
