@@ -53,17 +53,37 @@ struct Graph* createGraph(int total_vertices) {
 }
 
 // Add edge to graph
-//
-void addEdge(struct Graph* graph,  int src, int dest, int count_src, int count_dest) {
+//Constructing the graph
+void addEdge(struct Graph* graph,  int src, int dest, int count_src, int count_dest) {  // src 2, dest = 3, 5
     //Add destination node to source
-    struct Node* newNode = createNode(dest);
-    newNode->next = graph->array[count_src].head;
-    graph->array[count_src].head = newNode;
+    struct Node* newNode = createNode(dest);   //3--> >NULL // 4 --> NULL // 2 --> NULL // 4 --> NULL // 5 --> NULL
+    // 3 --> NULL
+    newNode->next = graph->array[count_src].head; // head[0] = NULL; 3 --> NULL // 3 --> head [0] = NULL
+    //  4 --> 3 --> NULL
+    //head[1] = NULL //  2 --> head[1] = NULL
+    // head [1] = 2 ; 4 --> head[1] = 2
+    //head [1] = 2--> NULL; 5 --> head[1] = 2 --> NULL
+    // head[2] = 1 --> NULL; 3 --> head[2] = 1 --> NULL
+    graph->array[count_src].head = newNode; // head[0] = 3  // head[0] = 4 --> 3 --> NULL
+    //head[1] = 2 --> NULL
+    //head[1] = 4 --> 2 --> NULL
+    //head[1] = 5 --> 2 --> NULL
+    //head[2] = 3 --> 1 --> NULL
 
     //Add source node to destination
-    newNode = createNode(src);
-    newNode->next = graph->array[count_dest].head;
-    graph->array[count_dest].head = newNode;
+    newNode = createNode(src);    // 0 --> NULL // 0 --> NULL // 1 --> NULL // 1 --> NULL // 1 --> NULL
+    // 2 --> NULL
+    newNode->next = graph->array[count_dest].head; // head[3] = NULL; 0 --> NULL
+    // head[4] --> NULL , 0 --> head[4] --> NULL
+    // head [2] = NULL // 1 --> head[2] = NULL
+    // head[4] = 0 --> NULL  1 --> head[4] = 0 --> NULL
+    // head[5] =NULL; 1 --> head[5] = NULL
+    // head[3] = NULL; 2 --> head[3] = NULL
+    graph->array[count_dest].head = newNode; // head[3] = 0 // head[4] = 0 --> NULL
+    // head[2] = 1 --> NULL
+    // head[4] = 1 --> 0 --> NULL
+    // head[5] = 1 --> NULL
+    // head[3] = 2 --> NULL
 }
 
 // Print graph [ 0   1   2   3   4   5]   10 91 78 18 24
