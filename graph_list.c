@@ -278,8 +278,11 @@ int main() {
     scanf("%d", &start_vertex);
 
     printf("\nDFS traversal: ");
-    //DFS_traversal(graph, start_vertex, map_array, vertices_count);
+    DFS_traversal(graph, start_vertex, map_array, vertices_count);
 
+    for (int i = 0; i < graph->no_vertices ; i++) {
+        graph->visited[i] = 0;
+    }
     printf("\nBFS traversal: ");
     BFS_traversal(graph, start_vertex, map_array, vertices_count);
 
