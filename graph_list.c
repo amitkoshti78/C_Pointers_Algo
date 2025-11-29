@@ -28,6 +28,12 @@ struct Graph {
     int *visited;
 };
 
+typedef struct Queue {
+  int items[100];
+  int front;
+  int rear;
+} Queue;
+
 // Create new node/vertices
 struct Node* createNode(int number) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
@@ -119,7 +125,7 @@ void DFS_traversal(struct Graph* graph, int start_vertx, Mapping map_array[], in
             }
         }
         if (graph->visited[count_src] == 0) {  // 5 -> 81 --> 1
-            printf("\n Node : %d, visited : %d ", temp->vertex, graph->visited[count_src]);
+            //printf("\n Node : %d, visited : %d ", temp->vertex, graph->visited[count_src]);
             DFS_traversal(graph, temp->vertex, map_array, vertices_count); // temp->vertex = 81, 33
         }
         temp = temp->next;
@@ -137,6 +143,95 @@ void deleteGraph(struct Graph* graph) {
     }
     free(graph->array);
     free(graph);
+}
+
+Queue* createQueue() {
+    Queue* queue = (Queue *)malloc(sizeof(Queue));
+    queue->front = 0;
+    queue->rear = -1;
+    return queue;
+}
+
+int isEmpty(Queue* queue) {
+
+    if (queue->rear < queue->front) {
+        return 1; // true
+    }
+    return 0; // false
+
+}
+
+void enqueue(Queue* q, int value) {
+    if (q->rear == 99) {
+        printf("\n Queue is full");
+        return;
+    }
+    q->rear++;
+    q->items[q->rear] = value;
+
+}
+
+int dequeue(Queue* q) {
+    if (isEmpty(q)) return -1;
+
+    int value = q->items[q->front++];
+    if (q->front > q ->rear) {
+        q->front = 0;
+        q->rear = -1;
+    }
+    return value;
+}
+
+void printQueue(Queue* q) {
+    for (int i = q->front; i <= q->rear; i++) {
+        printf("%d ", q->items[i]);
+    }
+    printf("\n");
+}
+
+void BFS_traversal(struct Graph* graph, int startVertex, Mapping map_array[], int vertices_count) {
+    int vertex_pos, vertex_pos1;
+
+    Queue* queue = createQueue();
+    enqueue(queue, startVertex);     // Graph [10, 23, 45, 67, 89] queue[45]
+    //[45]-->10-->23-->NULL [10]-->45-->67-->NULL [23]-->45-->NULL [67]-->10-->89--NULL
+
+    for (int k = 1; k < vertices_count; k++) {
+        if (map_array[k].node_value == startVertex) {  // 81 33,
+            vertex_pos = map_array[k].node_count; // 5  4 5
+        }
+    }
+    graph->visited[vertex_pos] = 1; // node [45, 1] = 1
+    while (!isEmpty(queue)){
+        int currentVertex = dequeue(queue);
+        if (currentVertex == -1) {
+            break;
+        }//[45]
+        printf("\n %d ", currentVertex);         // 45, 10, 23 67
+        for (int k = 1; k < vertices_count; k++) {
+            if (map_array[k].node_value == currentVertex) {  // 81 33,
+                vertex_pos = map_array[k].node_count; // 5  4 5
+            }
+        }
+        struct Node* temp  =  graph->array[vertex_pos].head;  // node 10 node 45 node 45 node 10
+        while (temp) {
+            int vertex = temp->vertex;   // value 10 23 45 67 45 10 89
+            for (int k = 1; k < vertices_count; k++) {
+                if (map_array[k].node_value == vertex) {  // 81 33,
+                    vertex_pos1 = map_array[k].node_count; // 5  4 5
+                }
+            }
+            if (graph->visited[vertex_pos1] == 0) {
+                enqueue(queue, vertex); // queue [45, 10, 23, 67, 89] front 45, rear 10
+                graph->visited[vertex_pos1] = 1;
+                //printf("\n %d ", vertex); // node [10, 1] = 1 // node [23, 1] = 1 // node [67, 1] = 1 // node [89, 1] = 1
+            }
+            temp = temp->next;
+
+        }
+
+    }
+    free(queue);
 }
 
 int main() {
@@ -182,7 +277,11 @@ int main() {
     printf("\nEnter the start vertex: ");
     scanf("%d", &start_vertex);
 
-    DFS_traversal(graph, start_vertex, map_array, vertices_count);
+    printf("\nDFS traversal: ");
+    //DFS_traversal(graph, start_vertex, map_array, vertices_count);
+
+    printf("\nBFS traversal: ");
+    BFS_traversal(graph, start_vertex, map_array, vertices_count);
 
     deleteGraph(graph);
 
